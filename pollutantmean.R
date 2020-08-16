@@ -19,9 +19,8 @@ pollutantmean <- function(directory,pollutant,id=1:332){
         origDir<-getwd()
         # navigate to the correct directory
         ##directory<-"C:/Users/S421596/Documents/Personal/DataScienceSpecializationCourse/specdata"
+        setwd('..')
         setwd(directory)
-
-        
         #get the list of files in the directory
         fileNames<-list.files()
         
@@ -53,11 +52,18 @@ pollutantmean <- function(directory,pollutant,id=1:332){
         
         #Now you have the mean and sample number for each .csv file. Now you can
         ## find the grand mean
-        grandSum<-obsData[,1]*obsData[,2]
-        #remove any NA values
-        obsData<-obsData[!is.na(grandSum),1:2]
-        grandSum<-sum(grandSum[!is.na(grandSum)])
-        totObs<-sum(obsData[,2])
-        grandSum/totObs
+        if(nrow(obsData)==1){
+                obsData[1]
+        }
+        else{
+                grandSum<-obsData[,1]*obsData[,2]
+                #remove any NA values
+                obsData<-obsData[!is.na(grandSum),1:2]
+                grandSum<-sum(grandSum[!is.na(grandSum)])
+                totObs<-sum(obsData[,2])
+                grandSum/totObs
+        }
+        
+
         
 }
